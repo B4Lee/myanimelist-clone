@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .player-wrapper {
+    /* padding: 5px; */
+    padding-top: 0.5rem
+      /* 8px */
+    ;
+    padding-bottom: 0.5rem
+      /* 8px */
+    ;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .avatar {
+    margin-right: 10px;
+    display: inline-block;
+    width: 50px;
+    height: 80px;
+    box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 10%);
+  }
+
+  .table-style {
+    --easy-table-header-background-color: #2e51a2;
+    --easy-table-header-font-size: 10px;
+    --easy-table-header-height: 30px;
+    --easy-table-header-font-color: #ffffff;
+    max-width: 64rem
+      /* 1024px */
+    ;
+    max-width: 64rem
+      /* 1024px */
+    ;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 2.5rem
+      /* 40px */
+    ;
+  }
+
+  .text-title {
+    text-align: left;
+  }
+
+  .text-url {
+    --tw-text-opacity: 1;
+    color: rgb(30 64 175 / var(--tw-text-opacity));
+    font-weight: 700;
+    font-size: 1.125rem
+      /* 18px */
+    ;
+    line-height: 1.75rem
+      /* 28px */
+  }
+}
+/* @import './base.css';
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  }
+} */
