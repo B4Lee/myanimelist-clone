@@ -1,15 +1,21 @@
 <template>
   <div class="mx-auto max-w-5xl border-2 border-gray-200 space-y-2">
-    <h2 class="text-xl font-semibold pl-2">Most Popular</h2>
-    <AnimeItem :fetchProps="this.favoriteAnime" />
-    <h2 class="text-xl font-semibold pl-2">Top Airing Anime</h2>
-    <AnimeItem :fetchProps="this.topAiring.slice(0, 10)" />
-    <h2 class="text-xl font-semibold pl-2">Top Upcoming Anime</h2>
-    <AnimeItem :fetchProps="this.upcomingAnime.slice(0, 10)" />
+    <AnimeHomeView endpoint="top/anime?filter=favorite" title="Most Popular" />
+    <AnimeHomeView endpoint="seasons/now" title="Top Airing Anime" />
+    <AnimeHomeView endpoint="seasons/upcoming" title="Top Upcoming Anime" />
   </div>
 </template>
 
 <script>
+import AnimeHomeView from '../components/HomeView/AnimeItem.vue'
+
+export default {
+  components: {
+    AnimeHomeView
+  }
+}
+</script>
+<!-- <script>
 import AnimeItem from '../components/HomeView/AnimeItem.vue'
 // import SkeletonLoader from '../components/SkeletonLoader.vue'
 
@@ -82,4 +88,4 @@ export default {
     }
   }
 }
-</script>
+</script> -->

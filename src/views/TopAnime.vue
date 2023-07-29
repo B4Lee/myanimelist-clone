@@ -1,12 +1,6 @@
 <template>
-  <EasyDataTable
-    show-index
-    header-text-direction="center"
-    body-text-direction="center"
-    table-class-name="table-style"
-    :headers="headers"
-    :items="anime"
-  >
+  <EasyDataTable show-index header-text-direction="center" body-text-direction="center" table-class-name="table-style"
+    :headers="headers" :items="resultData">
     <!-- inisiate a variable from apis -->
     <template #item-title="{ title, mal_id, images, episodes, type, members }">
       <div class="player-wrapper">
@@ -34,8 +28,16 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { useFetchEndpointData } from '../composable/useFetchEndpointData.vue'
 
 export default defineComponent({
+  setup() {
+    const endpoint = 'top/anime' // Replace with your desired endpoint
+    const { resultData } = useFetchEndpointData(endpoint)
+
+    return { resultData }
+  },
+
   data() {
     return {
       anime: [],
@@ -48,30 +50,30 @@ export default defineComponent({
     }
   },
 
-  mounted() {
-    this.fetchAnime()
-  },
+  // mounted() {
+  //   this.fetchAnime()
+  // },
 
-  methods: {
-    async fetchAnime() {
-      try {
-        const response = await fetch(`https://api.jikan.moe/v4/top/anime`)
-        if (!response.ok) {
-          throw new Error('Network response was not ok')
-        }
-        const responseData = await response.json()
-        if (responseData && responseData.data) {
-          this.anime = responseData.data
-          // let names = this.anime.map((item) => item.images.jpg.image_url)
-          // this.animes.push(names)
-          // console.log(this.anime)
-        } else {
-          throw new Error('Invalid response format')
-        }
-      } catch (error) {
-        console.error(error)
-      }
-    }
-  }
+  // methods: {
+  //   async fetchAnime() {
+  //     try {
+  //       const response = await fetch(`https://api.jikan.moe/v4/top/anime`)
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok')
+  //       }
+  //       const responseData = await response.json()
+  //       if (responseData && responseData.data) {
+  //         this.anime = responseData.data
+  //         // let names = this.anime.map((item) => item.images.jpg.image_url)
+  //         // this.animes.push(names)
+  //         // console.log(this.anime)
+  //       } else {
+  //         throw new Error('Invalid response format')
+  //       }
+  //     } catch (error) {
+  //       console.error(error)
+  //     }
+  //   }
+  // }
 })
 </script>
