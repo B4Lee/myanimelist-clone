@@ -1,6 +1,6 @@
 # myanimelist-clone
 
-This template should help get you started developing with Vue 3 in Vite.
+<!-- This template should help get you started developing with Vue 3 in Vite. -->
 
 
 ## Project Structure
@@ -24,11 +24,11 @@ src
   - [x] AnimeView/Details
 - [x] People Pages (TopPeople)
   - [x] PeopleView/Details
-- [] Character Pages (TopCharacter)
-  - [] CharacterView/Details
-- [] Manga Pages (TopManga)
-  - [] MangaView/Details
-- [] Add AnimeWatchList using Pinia
+- [ ] Character Pages (TopCharacter)
+  - [ ] CharacterView/Details
+- [ ] Manga Pages (TopManga)
+  - [ ] MangaView/Details
+- [ ] Add AnimeWatchList using Pinia
 
 <!-- ## Recommended IDE Setup
 
