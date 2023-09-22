@@ -1,17 +1,25 @@
 <template>
   <div class="relative bottom-8">
-    <h1 class="pl-2 mx-auto max-w-5xl bg-[#e1e7f5] text-lg font-bold">{{ this.anime.title }}</h1>
+    <h1 class="pl-2 mx-auto max-w-5xl bg-[#e1e7f5] text-lg font-bold">{{ anime.title }}</h1>
     <!-- <h1 class="pl-1 mx-auto text-gray-500 max-w-5xl bg-[#e1e7f5] text-md font-bold border-b-2 border-black">{{ this.anime.title_english }}</h1>
     -->
     <div class="mx-auto max-w-5xl grid grid-cols-4 pt-2 border-2 border-t-2 border-gray-200">
       <!-- IMAGE POSTER & ANIME INFORMATION -->
       <AnimeInformation :anime="anime" :posterPath="posterPath"/>
-      <AnimeContent :anime="this.anime" :character="this.character" />
+      <AnimeContent :anime="anime" :character="character" :japaneseVoiceActors="japaneseVoiceActors" />
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import { useFetchId } from '../composable/useFetchId.vue'
+import AnimeInformation from '../components/Anime/AnimeInformation.vue'
+import AnimeContent from '../components/Anime/AnimeContent.vue'
+
+const endpoint = 'characters' // Replace with your desired endpoint
+const { anime, character, japaneseVoiceActors, posterPath } = useFetchId(endpoint)
+</script>
+<!-- <script>
 import AnimeInformation from '../components/Anime/AnimeInformation.vue'
 import AnimeContent from '../components/Anime/AnimeContent.vue'
 
@@ -91,4 +99,4 @@ export default {
     }
   }
 }
-</script>
+</script> -->
