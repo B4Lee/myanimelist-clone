@@ -42,34 +42,39 @@
         <h2 class="text-sm font-bold mb-2 border-gray-300">Characters & Voice Actors</h2>
         <div class="flex flex-row justify-between border-[1px] border-gray-200">
           <div class="w-1/2 space-y-2">
-            <div :key="index" v-for="(item, index) in character.slice(0, 5)" class="flex text-xs">
-              <img
-                class="mr-1 inline-block w-[42px] h-[62px]"
-                :src="item.character.images.jpg.image_url"
-                alt=""
-              />
-              <span class="flex-row space-y-2">
-                <p>{{ item.character.name }}</p>
-                <p>{{ item.role }}</p>
-              </span>
+            <div class="flex justify-between text-xs">
+              <div class="space-y-2">
+                <div :key="index" v-for="(item, index) in character.slice(0, 5)" class="flex text-xs">
+                  <img class="mr-1 inline-block w-[42px] h-[62px]" :src="item.character.images.jpg.image_url" alt="" />
+                  <span class="flex-row space-y-2">
+                    <p>{{ item.character.name }}</p>
+                    <p>{{ item.role }}</p>
+                  </span>
+                </div>
+              </div>
+              <!-- <div>
+                <div v-for="actor in japaneseVoiceActors.slice(0, 5)" :key="actor.id"
+                  class="flex flex-row-reverse text-xs">
+                  <img class="mr-1 inline-block w-[42px] h-[62px]" :src="actor.person.images?.jpg?.image_url" alt="" />
+                  <span class="flex-row space-y-2 text-blue-800">
+                    <router-link :to="`/people/${actor.person?.mal_id}`">{{ actor.person?.name }}</router-link>
+                  </span>
+                </div>
+              </div> -->
             </div>
           </div>
 
           <div class="w-1/2 space-y-2">
-            <div
-              :key="index"
-              v-for="(item, index) in character.slice(5, 10)"
-              class="flex flex-row text-xs"
-            >
-              <img
-                class="mr-1 inline-block w-[42px] h-[62px]"
-                :src="item.character.images.jpg.image_url"
-                alt=""
-              />
-              <span class="flex-row space-y-2">
-                <p>{{ item.character.name }}</p>
-                <p>{{ item.role }}</p>
-              </span>
+            <div class="flex justify-between">
+              <div class="space-y-2">
+                <div :key="index" v-for="(item, index) in character.slice(5, 10)" class="flex flex-row text-xs">
+                  <img class="mr-1 inline-block w-[42px] h-[62px]" :src="item.character.images.jpg.image_url" alt="" />
+                  <span class="flex-row space-y-2">
+                    <p>{{ item.character.name }}</p>
+                    <p>{{ item.role }}</p>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -96,6 +101,9 @@ export default {
       required: true
     },
     character: {
+      required: true
+    },
+    japaneseVoiceActors: {
       required: true
     }
   }
