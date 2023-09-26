@@ -4,6 +4,7 @@ import AnimeView from '../views/AnimeView.vue'
 import PeopleView from '../views/PeopleView.vue'
 import TopAnime from '../views/TopAnime.vue'
 import TopPeople from '../views/TopPeople.vue'
+import TopCharacters from '../views/TopCharacters.vue'
 import AnimeList from '../views/AnimeList.vue'
 
 const router = createRouter({
@@ -30,6 +31,11 @@ const router = createRouter({
       component: TopAnime
     },
     {
+      path: '/character/',
+      name: 'top-character',
+      component: TopCharacters
+    },
+    {
       path: '/people/',
       name: 'top-people',
       component: TopPeople
@@ -38,7 +44,7 @@ const router = createRouter({
       path: '/anime-list/',
       name: 'anime-list',
       component: AnimeList
-    },
+    }
   ]
 })
 

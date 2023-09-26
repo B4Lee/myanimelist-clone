@@ -18,6 +18,7 @@ import SearchBar from './SearchBar.vue'
       <router-link class="text-white hover:bg-gray-600" to="/">Home</router-link>
       <router-link class="text-white hover:bg-gray-600" to="/anime">Anime</router-link>
       <router-link class="text-white hover:bg-gray-600" to="/people">People</router-link>
+      <router-link class="text-white hover:bg-gray-600" to="/character">Characters</router-link>
       <!-- <router-link class="text-white hover:bg-gray-600" to="/anime-list">Add Anime ➕</router-link> -->
     </nav>
     <SearchBar />
