@@ -47,7 +47,9 @@
                 <div :key="index" v-for="(item, index) in character.slice(0, 5)" class="flex text-xs">
                   <img class="mr-1 inline-block w-[42px] h-[62px]" :src="item.character.images.jpg.image_url" alt="" />
                   <span class="flex-row space-y-2">
-                    <p>{{ item.character.name }}</p>
+                    <router-link :to="`/character/${item.character.mal_id}/`">
+                      <p class="text-blue-800">{{ item.character.name }}</p>
+                    </router-link>
                     <p>{{ item.role }}</p>
                   </span>
                 </div>
@@ -70,7 +72,9 @@
                 <div :key="index" v-for="(item, index) in character.slice(5, 10)" class="flex flex-row text-xs">
                   <img class="mr-1 inline-block w-[42px] h-[62px]" :src="item.character.images.jpg.image_url" alt="" />
                   <span class="flex-row space-y-2">
-                    <p>{{ item.character.name }}</p>
+                    <router-link :to="`/character/${item.character.mal_id}/`">
+                      <p class="text-blue-800">{{ item.character.name }}</p>
+                    </router-link>
                     <p>{{ item.role }}</p>
                   </span>
                 </div>

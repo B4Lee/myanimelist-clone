@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AnimeView from '../views/AnimeView.vue'
+import CharacterView from '../views/CharacterView.vue'
 import PeopleView from '../views/PeopleView.vue'
 import TopAnime from '../views/TopAnime.vue'
 import TopPeople from '../views/TopPeople.vue'
@@ -19,6 +20,11 @@ const router = createRouter({
       path: '/anime/:id/',
       name: 'anime',
       component: AnimeView
+    },
+    {
+      path: '/character/:id',
+      name: 'character',
+      component: CharacterView
     },
     {
       path: '/people/:id/',
