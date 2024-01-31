@@ -1,5 +1,21 @@
 <script setup>
-import SearchBar from './SearchBar.vue'
+import { computed } from "vue";
+import { supabase } from "../../store/supabase";
+import { useRouter } from "vue-router";
+import SearchBar from './SearchBar.vue';
+import store from "../../store/index";
+
+// Get user from store
+const user = computed(() => store.state.user);
+
+// Setup ref to router
+const router = useRouter();
+
+// Logout function
+const logout = async () => {
+  await supabase.auth.signOut();
+  router.push({ name: "home" });
+};
 </script>
 <template>
   <header aria-label="Site Header">
@@ -8,6 +24,13 @@ import SearchBar from './SearchBar.vue'
         <router-link to="/">
           <img src="https://cdn.myanimelist.net/images/mal-logo-xsmall.png" alt="malIcon" />
         </router-link>
+      </div>
+      <div class="space-x-2">
+        <!-- Check if the user is logged in before displaying the buttons -->
+        <router-link v-if="!user" class="bg-white px-10 border-2 border-blue-800 hover:bg-blue-100 text-blue-800 text-base font-bold" to="/login">Login</router-link>
+        <router-link v-if="!user" class="bg-blue-800 px-10 border-2 border-blue-800 hover:bg-blue-700 text-white text-base font-bold" to="/register">Sign up</router-link>
+        <!-- Add a button to log out if the user is logged in -->
+        <button v-if="user" @click="logout" class="bg-red-500 px-10 border-2 border-red-800 hover:bg-red-700 text-white text-base font-bold"  >Logout</button>
       </div>
     </div>
     <div class="flex mx-auto items-center justify-between bg-[#2e51a2] max-w-5xl py-2">
@@ -19,7 +42,7 @@ import SearchBar from './SearchBar.vue'
       <router-link class="text-white hover:bg-gray-600" to="/anime">Anime</router-link>
       <router-link class="text-white hover:bg-gray-600" to="/people">People</router-link>
       <router-link class="text-white hover:bg-gray-600" to="/character">Characters</router-link>
-      <!-- <router-link class="text-white hover:bg-gray-600" to="/anime-list">Add Anime ➕</router-link> -->
+      <router-link class="text-white hover:bg-gray-600" to="/anime-list">Add Anime ➕</router-link>
     </nav>
     <SearchBar />
     <!-- <div class="items-center gap-4 lg:flex hidden md:hidden sm:block">
