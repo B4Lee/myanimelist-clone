@@ -11,6 +11,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.12.0",
     "pinia": "^2.1.4",
     "vue": "^3.3.4",
     "vue-matomo": "^4.2.0",
