@@ -2,10 +2,28 @@
 // import { RouterLink, RouterView } from 'vue-router'
 // import HelloWorld from './components/HelloWorld.vue'
 import { ref, onMounted, computed } from 'vue'
+import { supabase } from '../store/supabase';
+
+const account = ref("");
+getSession();
+
+async function getSession() {
+	try {
+		account.value = await supabase.auth.getSession();
+		// console.log(account.value)
+	} catch (error) {
+		console.error('Error getting session:', error.message);
+	}
+}
 
 const query = ref('')
 const my_anime = ref([])
 const search_results = ref([])
+
+const getAnimeImage = (anime) => {
+    // console.log('Anime object:', anime);
+    return anime?.image_url || 'fallback_image_url';
+};
 
 // computed: {
 //   animeAsc(() => {
@@ -36,20 +54,59 @@ const handleInput = (e) => {
 	}
 }
 
-const addAnime = (anime) => {
-	search_results.value = []
-	query.value = ''
+const addAnime = async (anime) => {
+  try {
+    const { mal_id, title, images, episodes } = anime;
+    const { error } = await supabase
+      .from('my_anime_table')
+      .upsert(
+        [
+          {
+            user_id: account.value.data.session.user.id,
+            anime_id: mal_id,  // Use mal_id instead of anime.mal_id
+            title: title,
+            image_url: images.jpg.image_url,  // Use images.jpg.image_url instead of anime.images.jpg.image_url
+            total_episodes: episodes,
+            watched_episodes: 0
+          },
+        ],
+        { onConflict: ['user_id', 'title'] }
+      );
 
-	my_anime.value.push({
-		id: anime.mal_id,
-		title: anime.title,
-		image: anime.images.jpg.image_url,
-		total_episodes: anime.episodes,
-		watched_episodes: 0
-	})
+    if (error) {
+      console.error('Error adding anime to Supabase:', error.message);
+    } else {
+      // Update local state
+      my_anime.value.push(anime);
 
-	localStorage.setItem('my_anime', JSON.stringify(my_anime.value))
-}
+      // Update localStorage
+      localStorage.setItem('my_anime', JSON.stringify(my_anime.value));
+    }
+  } catch (error) {
+    console.error('Error adding anime to Supabase:', error.message);
+  }
+};
+
+
+
+const removeAnime = async (anime) => {
+	try {
+		const { error } = await supabase
+			.from('my_anime_table')
+			.delete()
+			.eq('id', anime.id);
+
+		if (error) {
+			console.error('Error removing anime from Supabase:', error.message);
+		} else {
+			my_anime.value = my_anime.value.filter((t) => t.id !== anime.id);
+			// console.log('Anime removed from Supabase:', data);
+		}
+	} catch (error) {
+		console.error('Error removing anime from Supabase:', error.message);
+	}
+};
+
 
 const increaseWatch = (anime) => {
 	anime.watched_episodes++
@@ -61,20 +118,40 @@ const decreaseWatch = (anime) => {
 	localStorage.setItem('my_anime', JSON.stringify(my_anime.value))
 }
 
-const removeAnime = (anime) => {
-  const filtered = (my_anime.value = my_anime.value.filter((t) => t !== anime));
-  localStorage.setItem("my_anime", JSON.stringify(filtered));
-};
 
-onMounted(() => {
-	my_anime.value = JSON.parse(localStorage.getItem('my_anime')) || []
-})
+onMounted(async () => {
+	await getSession(); // Wait for getSession to complete before proceeding
+
+	// Check if account.value.data exists before accessing its properties
+	if (account.value && account.value.data && account.value.data.session && account.value.data.session.user) {
+		try {
+			const { data, error } = await supabase
+				.from('my_anime_table')
+				.select('*')
+				.eq('user_id', account.value.data.session.user.id);
+
+			if (error) {
+				console.error('Error fetching anime from Supabase:', error.message);
+			} else {
+				my_anime.value = data || [];
+			}
+		} catch (error) {
+			console.error('Error fetching anime from Supabase:', error.message);
+		}
+	}
+});
+
+
+
 </script>
 
 <template>
 	<main>
 		<!-- <h1>My Anime Tracker</h1> -->
-
+		<p v-if="account && account.data && account.data.session && account.data.session.user" id="account">
+			Account: {{ account.data.session.user.email }}
+		</p>
+		<p v-else>Loading...</p>
 		<form @submit.prevent="searchAnime">
 			<input type="text" placeholder="Search for an anime..." v-model="query" @input="handleInput" />
 			<button type="submit" class="button bg-[#2e51a2]">Search</button>
@@ -97,9 +174,9 @@ onMounted(() => {
 		<div class="myanime" v-if="my_anime.length > 0">
 			<h2>My Anime</h2>
 			<div v-for="anime in my_anime_asc" :key="anime.id" class="anime">
-				<img :src="anime.image" />
-				<router-link :to="`/anime/${anime.id}/`">
-				<h3>{{ anime.title }}</h3>
+				<img :src="getAnimeImage(anime)" />
+				<router-link :to="`/anime/${anime.anime_id}/`">
+					<h3>{{ anime.title }}</h3>
 				</router-link>
 				<div class="flex-1"></div>
 				<span class="episodes">{{ anime.watched_episodes }} / {{ anime.total_episodes }}</span>
@@ -286,5 +363,4 @@ form input {
 .anime .button:last-of-type {
 	margin-right: 0;
 }
-
 </style>
