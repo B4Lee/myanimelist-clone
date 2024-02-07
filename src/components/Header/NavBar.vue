@@ -19,28 +19,12 @@ import SearchBar from './SearchBar.vue'
       <router-link class="text-white hover:bg-gray-600" to="/anime">Anime</router-link>
       <router-link class="text-white hover:bg-gray-600" to="/people">People</router-link>
       <router-link class="text-white hover:bg-gray-600" to="/character">Characters</router-link>
-      <!-- <router-link class="text-white hover:bg-gray-600" to="/anime-list">Add Anime ➕</router-link> -->
+      <router-link class="text-white hover:bg-gray-600" to="/anime-list">Add Anime List ➕</router-link>
     </nav>
     <SearchBar />
-    <!-- <div class="items-center gap-4 lg:flex hidden md:hidden sm:block">
-      <DarkToggle />
-    </div> -->
   </div>
   <div class="mx-auto max-w-5xl pl-2 py-1 bg-[#e1e7f5] border-[#e1e7f5] text-xl font-bold overflow-auto block">
     Welcome to MyAnimeList Clone!
   </div>
-
-  <!-- <div
-    class="border-b  border-gray-100 lg:hidden bg-white dark:bg-slate-800 flex mx-auto items-center justify-between max-w-5xl">
-    <nav class="flex items-center space-x-4 justify-center overflow-x-auto p-4 text-sm font-medium">
-      <router-link class="text-gray-900 dark:text-white" to="/">Home</router-link>
-      <router-link class="text-gray-900 dark:text-white" to="/about">About</router-link>
-      <router-link class="text-gray-900 dark:text-white" to="/blog">Blog</router-link>
-      <router-link class="text-gray-900 dark:text-white" to="/projects">Projects</router-link>
-    </nav>
-    <div class="items-center gap-4 lg:flex">
-      <DarkToggle />
-    </div>
-  </div> -->
 </header>
 </template>
